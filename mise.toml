@@ -1,0 +1,19 @@
+monorepo_root = true
+
+[monorepo]
+config_roots = ["packages/*"]
+
+[tools]
+uv = "latest"
+python = "latest"
+prek = "latest"
+
+[settings]
+experimental = true
+python.uv_venv_auto = "create|source"
+
+[hooks]
+postinstall = "prek install"
+
+[deps.uv]
+auto = true

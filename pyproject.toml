@@ -1,0 +1,45 @@
+[project]
+name = "entry-points"
+version = "0.1.0"
+readme = "README.md"
+requires-python = ">=3.15"
+authors = [{ name = "Léo Bernard", email = "leodevian.gh@gmail.com" }]
+classifiers = [
+  "Programming Language :: Python :: 3 :: Only",
+  "Programming Language :: Python :: 3.15",
+]
+dependencies = [
+  "typer>=0.27.3",
+]
+optional-dependencies.all = [
+  "entry-points-build",
+  "entry-points-release",
+  "entry-points-test",
+]
+optional-dependencies.build = ["entry-points-build"]
+optional-dependencies.release = ["entry-points-release"]
+optional-dependencies.test = ["entry-points-test"]
+import-names = ["entry_points.main"]
+import-namespaces = ["entry_points"]
+
+[project.scripts]
+entry-points = "entry_points.main.cli:app"
+
+[build-system]
+requires = ["uv-build>=0.13.7,<0.14"]
+build-backend = "uv_build"
+
+[tool.uv.workspace]
+members = [
+  "packages/entry-points-test",
+  "packages/entry-points-release",
+  "packages/entry-points-build",
+]
+
+[tool.uv.sources]
+entry-points-build = { workspace = true }
+entry-points-release = { workspace = true }
+entry-points-test = { workspace = true }
+
+[tool.uv.build-backend]
+module-name = "entry_points.main"
