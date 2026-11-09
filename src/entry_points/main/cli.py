@@ -1,16 +1,11 @@
 __all__ = ("app",)
 
-lazy import importlib.metadata
 
 import typer
 
+from .plugins import add_apps_from_entry_points
+
 app = typer.Typer(no_args_is_help=True)
-
-
-def add_apps() -> None:
-    discovered_apps = importlib.metadata.entry_points(group="entrypoints.apps")
-    for discovered_app in discovered_apps:
-        app.add_typer(discovered_app.load())
 
 
 @app.callback()
@@ -19,7 +14,7 @@ def main() -> None:
     return
 
 
-add_apps()
+add_apps_from_entry_points(app, group="entrypoints.apps")
 
 
 if __name__ == "__main__":
